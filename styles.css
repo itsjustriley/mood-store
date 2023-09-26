@@ -1,0 +1,32 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Shrikhand&display=swap');
+
+.page-header h4 {
+    font-family: 'Shrikhand', cursive;
+}
+body {
+    font-family: 'Poiret One', cursive;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.page-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+    background-color: bisque;
+}
+
+.page-header ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.page-header a {
+    display: block;
+    padding:0.5em;
+    text-decoration:none;
+}
