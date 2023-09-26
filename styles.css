@@ -2,20 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Shrikhand&display=swap');
 
 .page-header h4 {
-    font-family: 'Shrikhand', cursive;
+font-family: 'Shrikhand', cursive;
 }
 body {
     font-family: 'Poiret One', cursive;
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
+    background-color: #EE95B1;
+    color: #3b3136;
 }
 
 .page-header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-    background-color: bisque;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #FFF3EF;
+    color: #CB342A;
 }
 
 .page-header ul {
@@ -29,4 +32,68 @@ body {
     display: block;
     padding:0.5em;
     text-decoration:none;
+    color: #CB342A;
+    transition: ease 300ms;
+}
+
+.page-header a:hover {
+    color: #619854;
+}
+
+.items {
+    width: 80%;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1em;
+    padding: 20px;
+
+
+}
+
+.items img {
+    width: 100%;
+    height: auto;
+}
+
+.item {
+    border: 1px solid #619854;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFF3EF;
+}
+
+.item button { 
+    border: .5px solid black;
+    border-radius: 5px;
+    max-height: 2rem;
+    font-size: .75rem;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 2rem;
+    padding: .5rem;
+    background-color: #619854;
+    color:#FFF3EF;
+    transition: ease 300ms;
+
+}
+.item button:hover {
+    background-color: #446a3b;
+}
+
+.item img {
+    
+
+}
+
+.item p:nth-child(1) {
+    
+}
+.item p:nth-child(2) {
+    text-align: center;
+    padding: 1em;
 }
