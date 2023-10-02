@@ -1,6 +1,10 @@
 import data from './data.js'
 
 const itemsContainer = document.querySelector('#items')
+const itemList = document.getElementById('item-list')
+const cartQty = document.getElementById('cart-qty')
+const cartTotal = document.getElementById('cart-total')
+
 
 
 data.forEach(mood => {
@@ -56,16 +60,20 @@ function showItems() {
         s = ''
     }
 
-    console.log (`You have ${totalQty} item${s} in your cart`)
+    cartQty.innerHTML = (`You have ${totalQty} item${s} in your cart`)
+
+    let itemStr = ''
     cart.forEach(item => {
-        console.log(`${item.name} ${item.price} x ${item.qty} `)
+        let totalItemPrice = Math.round((item.qty * item.price) * 100)/100
+        itemStr += `<li> ${item.name} ${item.price} x ${item.qty} = ${(totalItemPrice)}</li>`
     });
-    console.log(`Total in cart: $${cartTotal()}`)
+    itemList.innerHTML = itemStr
+    cartTotal.innerHTML = `Total in cart: $${getCartTotal()}`
 }
 
 // -------------------------
 // Get Total
-function cartTotal() {
+function getCartTotal() {
     let total = 0
     cart.forEach(item => {
         total += item.price * item.qty
@@ -103,7 +111,4 @@ addItems('apple', .99)
 addItems('banana', .76)
 addItems('orange', 1.99)
 addItems('apple', .99)
-showItems()
-removeItem('apple', 2)
-removeItem('banana')
 showItems()
