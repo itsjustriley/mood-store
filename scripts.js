@@ -29,17 +29,52 @@ data.forEach(mood => {
 // CART
 const cart = []
 
+// Add Items to Cart
 function addItems(name, price) {
-    const item = {name: name, price: price, qty: 1}
+    cart.forEach(item => {
+        if (item.name === name) {
+            item.qty += 1
+        }
+        return
+    })
+    const item = {name, price, qty: 1}
     cart.push(item)
 }
 
+// Show Items
 function showItems() {
-    console.log (`You have ${cart.length} item(s) in your cart`)
+    let s = 's'
+    let totalQty = getTotalQty()
+    
+    if (totalQty === 1) {
+        s = ''
+    }
+
+    console.log (`You have ${totalQty} item${s} in your cart`)
     cart.forEach(item => {
-        console.log(`${item.qty} x ${item.name} @ ${item.price} = ${item.price * item.qty}`)
+        console.log(`${item.name} ${item.price} x ${item.qty} `)
     });
+    console.log(`Total in cart: $${cartTotal()}`)
 }
 
-addItems('apple', 1.99)
+// Get Total
+function cartTotal() {
+    let total = 0
+    cart.forEach(item => {
+        total += item.price * item.qty
+    })
+    return total.toFixed(2)
+}
+
+//  Get total quantity of items
+function getTotalQty() {
+    const totalQty = cart.reduce((itemCount, item) => itemCount + item.qty, 0);
+    return totalQty
+}
+
+addItems('apple', .99)
+addItems('banana', .76)
+addItems('orange', 1.99)
+addItems('apple', .99)
 showItems()
+cartTotal()
