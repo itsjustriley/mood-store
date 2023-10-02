@@ -30,6 +30,9 @@ data.forEach(mood => {
     newDiv.appendChild(button)
 });
 
+const all_items_button = Array.from(document.querySelectorAll("button"))
+
+
 // CART
 const cart = []
 
@@ -106,9 +109,8 @@ function removeItem(name, qty = 0){
 }
 
 // -------------------------
-addItems('apple', .99)
-addItems('apple', .99)
-addItems('banana', .76)
-addItems('orange', 1.99)
-addItems('apple', .99)
-showItems()
+
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItems(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+}))
