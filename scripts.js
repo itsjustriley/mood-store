@@ -29,18 +29,24 @@ data.forEach(mood => {
 // CART
 const cart = []
 
+// -------------------------
 // Add Items to Cart
 function addItems(name, price) {
+    let itemExists = false;
+    
     cart.forEach(item => {
         if (item.name === name) {
             item.qty += 1
+            itemExists = true
         }
-        return
     })
-    const item = {name, price, qty: 1}
-    cart.push(item)
+    if (!itemExists){
+        const item = {name, price, qty: 1}
+        cart.push(item)
+    }
 }
 
+// -------------------------
 // Show Items
 function showItems() {
     let s = 's'
@@ -57,6 +63,7 @@ function showItems() {
     console.log(`Total in cart: $${cartTotal()}`)
 }
 
+// -------------------------
 // Get Total
 function cartTotal() {
     let total = 0
@@ -66,15 +73,37 @@ function cartTotal() {
     return total.toFixed(2)
 }
 
+// -------------------------
 //  Get total quantity of items
 function getTotalQty() {
     const totalQty = cart.reduce((itemCount, item) => itemCount + item.qty, 0);
     return totalQty
 }
 
+// -------------------------
+// Remove Item
+function removeItem(name, qty = 0){
+    cart.forEach((item, index) => {
+        if (item.name === name) {
+            if (qty > 0){
+                item.qty -= qty
+            }
+            if (item.qty < 1 || qty === 0) {
+                cart.splice(index, 1);
+            }
+            return
+        }
+    });
+    
+}
+
+// -------------------------
+addItems('apple', .99)
 addItems('apple', .99)
 addItems('banana', .76)
 addItems('orange', 1.99)
 addItems('apple', .99)
 showItems()
-cartTotal()
+removeItem('apple', 2)
+removeItem('banana')
+showItems()
