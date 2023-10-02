@@ -6,7 +6,6 @@ const cartQty = document.getElementById('cart-qty')
 const cartTotal = document.getElementById('cart-total')
 
 
-
 data.forEach(mood => {
     const newDiv = document.createElement('div');
 	newDiv.className = 'item'
@@ -32,6 +31,39 @@ data.forEach(mood => {
 
 const all_items_button = Array.from(document.querySelectorAll("button"))
 
+// -------------------------
+// EVENT LISTENERS
+
+// add to cart button
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItems(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+}))
+
+// remove from cart button
+itemList.addEventListener('click',  function(e) {
+    const name = e.target.dataset.name
+    const price = e.target.dataset.price
+    if (e.target && e.target.classList.contains('remove-all')) {
+        removeItem(name)
+    }
+    if (e.target && e.target.classList.contains('add-one')) {
+        addItems(name, price)
+    }
+    if (e.target && e.target.classList.contains('remove-one')) {
+        removeItem(name, 1)
+    }
+})
+
+// allow user to set number of items
+itemList.addEventListener('change', function(e) {
+    if (e.target && e.target.classList.contains('update')) {
+        const name = e.target.dataset.name
+        const qty = parseInt(e.target.value)
+        updateCart(name, qty)
+    }
+})
+
 
 // CART
 const cart = []
@@ -51,6 +83,7 @@ function addItems(name, price) {
         const item = {name, price, qty: 1}
         cart.push(item)
     }
+    showItems()
 }
 
 // -------------------------
@@ -68,7 +101,13 @@ function showItems() {
     let itemStr = ''
     cart.forEach(item => {
         let totalItemPrice = Math.round((item.qty * item.price) * 100)/100
-        itemStr += `<li> ${item.name} ${item.price} x ${item.qty} = ${(totalItemPrice)}</li>`
+        itemStr += `<li>
+        <p>${item.name} ${item.price} x ${item.qty} = ${(totalItemPrice)}</p>
+        <button class="remove-all" data-name="${item.name}">Remove</button>
+        <button class="add-one" data-name="${item.name}">+</button>
+        <button class="remove-one" data-name="${item.name}">-</button>
+        <input class="update" type="number" data-name="${item.name}" placeholder="set item quantity">
+        </li>`
     });
     itemList.innerHTML = itemStr
     cartTotal.innerHTML = `Total in cart: $${getCartTotal()}`
@@ -102,6 +141,7 @@ function removeItem(name, qty = 0){
             if (item.qty < 1 || qty === 0) {
                 cart.splice(index, 1);
             }
+            showItems()
             return
         }
     });
@@ -109,8 +149,17 @@ function removeItem(name, qty = 0){
 }
 
 // -------------------------
-
-all_items_button.forEach(elt => elt.addEventListener('click', () => {
-    addItems(elt.getAttribute('id'), elt.getAttribute('data-price'))
+// Update Cart
+function updateCart(name, qty) {
+    cart.forEach(item => {
+        if (item.name === name) {
+            item.qty = qty
+        }
+        if (item.qty < 1) {
+            removeItem(name)
+        }
+    })
     showItems()
-}))
+}
+
+showItems()
